@@ -1,0 +1,45 @@
+escape C-z
+
+exec xsetroot -solid "#000000" -cursor_name left_ptr
+
+bind r restart
+bind q quit
+bind k kill
+bind w windows
+
+bind backslash exec
+bind slash colon
+
+bind b banish
+
+bind s vsplit
+bind h hsplit
+bind o only
+
+bind g groups
+bind C-n gnext
+bind C-p gprev
+bind C-g gnew
+bind C-G gnewbg
+bind C-d gdelete
+bind m gmove
+bind C-m gmerge
+
+addhook switchgroup groups
+addhook switchgroup next
+
+bind d exec ratpoison -c "echo `date`"
+bind C-c exec ratpoison -c "echo `cal`"
+bind a exec ratpoison -c "echo $(acpi)"
+
+bind c exec chromium
+bind f exec firefox
+bind e exec emacs
+bind P exec epdfview
+bind t exec urxvt -bg "#002B36" -fg "#839496" +sb -fn "xft:Source Code Pro Medium:pixelsize=15"
+bind i exec idea.sh
+
+exec bash -c 'wmname LG3D'
+exec bash -c 'pgrep urxvt || exec urxvt -bg "#002B36" -fg "#839496" +sb -fn "xft:Source Code Pro Medium:pixelsize=15" -e bash -c "tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -s$USER@$HOSTNAME"'
+exec bash -c 'pgrep emacs || exec emacs'
+exec bash -c 'pgrep chromium || exec chromium'
