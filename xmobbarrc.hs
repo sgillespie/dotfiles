@@ -1,7 +1,7 @@
 Config { 
   -- appearance
   font        = "xft:Cantarell Bold:size=11:bold:antialias=true",
-  bgColor     = "#002B36",
+  bgColor     = "#000000",
   fgColor     = "#646464",
   position    = Top,
   border      = BottomB,
@@ -48,7 +48,7 @@ Config {
                    "--low", "darkgreen",
                    "--normal", "darkorange",
                    "--high", "darkred"]
-                  10,
+                  50,
 
      -- memory usage monitor
      Run Memory ["--template", "Mem: <usedratio>%",
@@ -57,7 +57,7 @@ Config {
                  "--low", "darkgreen",
                  "--normal", "darkorange",
                  "--high", "darkred"]
-                10,
+                50,
 
         -- battery monitor
      Run Battery [ "--template", "Battery: <acstatus>",
@@ -78,5 +78,5 @@ Config {
 
      -- time and date indicator 
      --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-     Run Date "<fc=#AAAAAA>%A, %m/%d/%Y, %H:%M</fc>" "date" 10]]
+     Run Date "<fc=#AAAAAA>%a %H:%M</fc>" "date" 100]]
   }
