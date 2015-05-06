@@ -17,8 +17,10 @@
  '(js-indent-level 2)
  '(make-backup-files nil)
  '(nxml-child-indent 2)
- '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-		      ("marmalade" . "http://marmalade-repo.org/packages/")))
+ '(package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
+		      ("marmalade" . "http://marmalade-repo.org/packages/")
+                      ("gnu" . "http://elpa.gnu.org/packages/")
+                      ("melpa" . "http://melpa.org/packages/")))
  '(speedbar-frame-parameters
    '((width . 45)
      (minibuffer)
