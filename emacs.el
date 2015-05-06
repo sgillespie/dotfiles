@@ -150,8 +150,16 @@
 (require 'speedbar)
 (require 'sr-speedbar)
 
+(defun sr-speedbar-get-focus ()
+  (interactive)
+  (progn
+    (sr-speedbar-open)
+    (sr-speedbar-select-window)))
+
 (global-set-key "\C-c\C-s" 'sr-speedbar-toggle)
-(global-set-key "\C-cs" 'sr-speedbar-select-window)
+(global-set-key "\C-cs" 'sr-speedbar-get-focus)
+
+(add-hook 'speedbar-visiting-file-hook 'sr-speedbar-close t)
 
 ;;; fonts
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
