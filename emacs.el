@@ -28,8 +28,11 @@
      (left-fringe . 0)))
  '(speedbar-show-unknown-files t)
  '(speedbar-update-flag nil)
+ '(sr-speedbar-auto-refresh nil)
  '(truncate-lines t)
  '(x-select-enable-clipboard t))
+
+(add-to-list 'load-path "~/.emacs.d/elisp")
 
 ;;; Mode-specific Settings
 (add-to-list 'auto-mode-alist '("capfile" . ruby-mode))
@@ -86,6 +89,7 @@
 (package-initialize)
 
 (defvar install-packages '(speedbar
+                           sr-speedbar
 			   color-theme
 			   color-theme-solarized
 
@@ -146,18 +150,7 @@
 (require 'speedbar)
 (require 'sr-speedbar)
 
-(custom-set-variables
- '(speedbar-show-unknown-files t)
- '(speedbar-update-flag nil)
- '(speedbar-frame-parameters '((width . 45)
-			       (minibuffer . nil)
-			       (border-width . 0)
-			       (menu-bar-lines . 0)
-			       (tool-bar-lines . 0)
-			       (unsplittable . t)
-			       (left-fringe . 0))))
-
-(global-set-key "\C-c\C-s" 'sr-speedbar-open)
+(global-set-key "\C-c\C-s" 'sr-speedbar-toggle)
 (global-set-key "\C-cs" 'sr-speedbar-select-window)
 
 ;;; fonts
