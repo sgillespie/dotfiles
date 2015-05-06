@@ -103,7 +103,6 @@
                            starter-kit-bindings
                            starter-kit-eshell
                            clojure-mode
-                           clojure-test-mode
                            cider))
 
 (dolist (p install-packages)
