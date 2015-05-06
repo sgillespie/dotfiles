@@ -17,10 +17,7 @@
  '(js-indent-level 2)
  '(make-backup-files nil)
  '(nxml-child-indent 2)
- '(package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
-		      ("marmalade" . "http://marmalade-repo.org/packages/")
-                      ("gnu" . "http://elpa.gnu.org/packages/")
-                      ("melpa" . "http://melpa.org/packages/")))
+ '(package-archives '(("melpa" . "http://melpa.org/packages/")))
  '(speedbar-frame-parameters
    '((width . 45)
      (minibuffer)
@@ -146,6 +143,9 @@
 ;;; magit
 (global-set-key "\C-cg" 'magit-status)
 ;;; speedbar
+(require 'speedbar)
+(require 'sr-speedbar)
+
 (custom-set-variables
  '(speedbar-show-unknown-files t)
  '(speedbar-update-flag nil)
@@ -157,9 +157,8 @@
 			       (unsplittable . t)
 			       (left-fringe . 0))))
 
-;; Disable bindings for now
-(global-set-key "\C-cs" 'speedbar-get-focus)
-(require 'speedbar)
+(global-set-key "\C-c\C-s" 'sr-speedbar-open)
+(global-set-key "\C-cs" 'sr-speedbar-select-window)
 
 ;;; fonts
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
