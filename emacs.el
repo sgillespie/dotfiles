@@ -42,6 +42,10 @@
 (add-hook 'haskell-mode-hook 'haskell-key-bindings)
 (add-hook 'haskell-cabal-mode-hook 'haskell-key-bindings)
 
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+
 ;; Make shell mode nicer
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
@@ -54,7 +58,7 @@
 (defun haskell-process-cabal-test ()
   "Test the Cabal project"
   (interactive)
-  (haskell-process-do-cabal "build")
+  (haskell-process-do-cabal "test")
   (haskell-process-add-cabal-autogen))
 
 (defun haskell-key-bindings ()
