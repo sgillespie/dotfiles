@@ -58,7 +58,7 @@
 (defun haskell-process-cabal-test ()
   "Test the Cabal project"
   (interactive)
-  (haskell-process-do-cabal "test")
+  (haskell-process-do-cabal "test --show-details=failures")
   (haskell-process-add-cabal-autogen))
 
 (defun haskell-key-bindings ()
