@@ -3,16 +3,17 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Replace
 import System.IO
 
 main :: IO ()
-main = (xmobar' . additionalKeys') config' >>= xmonad
+main = replace >> (xmobar' . additionalKeys') config' >>= xmonad
 
 xmobar' = xmobar
 
 config' = defaultConfig {
   layoutHook  = avoidStruts $ layoutHook defaultConfig,
-  manageHook  = manageDocks <+> manageHook defaultConfig,
+  manageHook  = manageDocks <+> manageHook' <+> manageHook defaultConfig,
   startupHook = setWMName "LG3D",
 
   borderWidth        = 1,
@@ -29,6 +30,11 @@ additionalKeys' = flip additionalKeys $
    ((mod4Mask, xK_Print), spawn "import -window 0 /home/sgillespie/documents/screenshots/$(date +%Y%m%d%H%M%S).png"),
    ((mod4Mask .|. mod1Mask, xK_e), spawn "emacs"),
    ((mod4Mask .|. mod1Mask, xK_c), spawn "chromium"),
+   ((mod4Mask .|. mod1Mask, xK_f), spawn "firefox"),
    ((mod4Mask .|. mod1Mask, xK_i), spawn "idea.sh"),
    ((mod4Mask .|. mod1Mask, xK_Return), spawn "urxvt -e bash -c \"tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -s$USER@$HOSTNAME\""),
-   ((mod4Mask .|. mod1Mask, xK_t), spawn "tor-browser-en")]
+   ((mod4Mask .|. mod1Mask, xK_t), spawn "tor-browser-en"),
+   ((mod4Mask .|. mod1Mask, xK_o), restart "/home/sgillespie/.xmonad/obtoxmd.sh" True)]
+
+manageHook' = composeAll
+              [className =? "jetbrains-idea-ce" --> doFloat]
