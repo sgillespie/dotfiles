@@ -50,9 +50,14 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;;; Key Bindings
+(global-set-key (kbd "C-s-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-s-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-s-<down>") 'shrink-window)
+(global-set-key (kbd "C-s-<up>") 'enlarge-window)
+
 ;; Disable these for now
 ; (global-set-key "\C-cr" 'recompile)
-; (global-set-key "\C-cv" 'visual-line-mode)
+; (global-set-key "\C-cv" 'visual-line-mode))
 
 ; Haskell local bindings
 (defun haskell-process-cabal-test ()
