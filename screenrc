@@ -1,0 +1,40 @@
+# basic settings... self explainatory
+nethack on
+autodetach on
+startup_message off
+
+# the dash makes it a login shell
+defshell -$SHELL
+shell -$SHELL
+activity ""
+bell_msg ""
+vbell off
+vbell_msg ""
+defscrollback 10000
+nonblock on
+defutf8 on
+defbce on
+defflow off
+msgwait 1
+altscreen on
+
+shelltitle '-- |bash'
+
+# only Shift+k to kill - prevent accidents
+bind k
+bind ^k
+bind K kill
+
+# resizing
+bind = resize =
+bind + resize +3
+bind - resize -3
+
+term screen
+terminfo rxvt* 'ti@:te@:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+ 
+# Here comes the pain...
+hardstatus alwayslastline "%{= dd} %=%?%-Lw%?%{=b dd}[%n %t]%?%+Lw%?%= "
+
+# Copy to clipboard (OSX only)
+bind b eval "writebuf" "exec sh -c 'pbcopy < /tmp/screen-exchange'"

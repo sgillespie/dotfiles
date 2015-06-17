@@ -1,0 +1,20 @@
+[merge]
+	defaultToUpstream = true
+[diff]
+	mnemonicprefix = true
+[rerere]
+	enabled = true
+[branch]
+	autosetuprebase = remote
+[color]
+	diff = auto
+	status = auto
+[log]
+	decorate = short
+[push]
+	default = tracking
+[http]
+	sslVerify = false
+[alias]
+        ff = merge --ff-only
+        nff = merge --no-ff
