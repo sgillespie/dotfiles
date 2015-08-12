@@ -56,9 +56,8 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
-;; Disable these for now
-; (global-set-key "\C-cr" 'recompile)
-; (global-set-key "\C-cv" 'visual-line-mode))
+(global-set-key (kbd "C-c C-r") 'recompile)
+(global-set-key (kbd "C-c C-l") 'visual-line-mode)
 
 ; Haskell local bindings
 (defun haskell-process-cabal-test ()
