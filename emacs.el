@@ -17,7 +17,8 @@
  '(js-indent-level 2)
  '(make-backup-files nil)
  '(nxml-child-indent 2)
- '(package-archives '(("melpa" . "http://melpa.org/packages/")))
+ '(package-archives '(("melpa" . "http://melpa.org/packages/")
+                      ("elpa" . "http://elpa.gnu.org/packages/")))
  '(speedbar-frame-parameters
    '((width . 45)
      (minibuffer)
