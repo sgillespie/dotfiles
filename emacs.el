@@ -109,7 +109,12 @@
                            starter-kit-bindings
                            starter-kit-eshell
                            clojure-mode
-                           cider))
+                           cider
+
+                           ; javascript
+                           flycheck
+                           js2-mode
+                           json-mode))
 
 (dolist (p install-packages)
   (when (not (package-installed-p p))
@@ -122,12 +127,25 @@
 (require 'color-theme)
 (color-theme-solarized-dark)
 
+;;; Flycheck
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-to-list 'flycheck-disabled-checkers
+             'javascript-jshint
+             'json-jsonlist)
+(flycheck-add-mode 'javascript-eslint 'js-mode)
+(flycheck-add-mode 'javascript-eslint 'js2-mode)
+
 ;;; Groovy
 (autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
-
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
+
+;;; Javascript
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
 
 (add-hook 'java-mode-hook (lambda ()
 			    (setq c-basic-offset 4
