@@ -6,27 +6,45 @@
 (require 'tramp)
 
 (custom-set-variables
- '(ansi-color-names-vector ["black" "red" "green4" "yellow4" "blue3" 
-			    "magenta4" "cyan4" "white"])
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["black" "red" "green4" "yellow4" "blue3" "magenta4" "cyan4" "white"])
  '(auto-save-default nil)
  '(auto-save-mode nil)
- '(backup-directory-alist '(("." . "~/.emacs_backups")))
+ '(backup-directory-alist (quote (("." . "~/.emacs_backups"))))
  '(compile-command "./gradle.sh build")
  '(fill-column 90)
- '(indent-tabs-mode t)
+ '(indent-tabs-mode nil)
  '(js-indent-level 2)
+ '(js2-allow-member-expr-as-function-name t)
+ '(js2-basic-offset 2)
+ '(js2-missing-semi-one-line-override t)
+ '(js2-mode-show-parse-errors nil)
+ '(js2-mode-show-strict-warnings nil)
+ '(js2-strict-cond-assign-warning nil)
+ '(js2-strict-inconsistent-return-warning nil)
+ '(js2-strict-missing-semi-warning nil)
+ '(js2-strict-trailing-comma-warning nil)
+ '(js2-strict-var-hides-function-arg-warning nil)
+ '(js2-strict-var-redeclaration-warning nil)
  '(make-backup-files nil)
  '(nxml-child-indent 2)
- '(package-archives '(("melpa" . "http://melpa.org/packages/")
-                      ("elpa" . "http://elpa.gnu.org/packages/")))
+ '(package-archives
+   (quote
+    (("melpa" . "http://melpa.org/packages/")
+     ("elpa" . "http://elpa.gnu.org/packages/"))))
  '(speedbar-frame-parameters
-   '((width . 45)
+   (quote
+    ((width . 45)
      (minibuffer)
      (border-width . 0)
      (menu-bar-lines . 0)
      (tool-bar-lines . 0)
      (unsplittable . t)
-     (left-fringe . 0)))
+     (left-fringe . 0))))
  '(speedbar-show-unknown-files t)
  '(speedbar-update-flag nil)
  '(sr-speedbar-auto-refresh nil)
@@ -130,20 +148,19 @@
 ;;; Flycheck
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(add-to-list 'flycheck-disabled-checkers
-             'javascript-jshint
-             'json-jsonlist)
 (flycheck-add-mode 'javascript-eslint 'js-mode)
 (flycheck-add-mode 'javascript-eslint 'js2-mode)
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
 
 ;;; Groovy
 (autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
-(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
-(add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
+(add-to-list 'auto-mode-alist '("\\.groovy$" . groovy-mode))
+(add-to-list 'auto-mode-alist '("\\.gradle$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
 
 ;;; Javascript
-(autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
@@ -185,6 +202,12 @@
 (add-hook 'speedbar-visiting-file-hook 'sr-speedbar-close t)
 
 ;;; fonts
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
+(add-to-list 'default-frame-alist '(font . "Liberation Mono-14"))
 
 (put 'scroll-left 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
