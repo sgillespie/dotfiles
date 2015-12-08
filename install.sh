@@ -31,6 +31,8 @@ mkLink "$DIR/zshrc.zsh" "$HOME/.zshrc"
 mkLink "$DIR/emacs.el" "$HOME/.emacs"
 mkLink "$DIR/screenrc" "$HOME/.screenrc"
 mkLink "$DIR/tmux.conf" "$HOME/.tmux.conf"
+mkLink "$DIR/bashrc.bash" "$HOME/.bashrc"
+mkLink "$DIR/bashrc.bash" "$HOME/.bash_profile"
 
 ## Add gitconfig
 git config --global include.path "$DIR/gitconfig"
