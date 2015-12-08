@@ -24,7 +24,7 @@ esac
 
 # Load files in ~/.zsh.d
 if [[ -d ~/.bash.d ]]; then
-    for src in $(find ~/.zsh.d -type f -name \*.bash); do
+    for src in $(find ~/.bash.d -type f -name \*.bash); do
 	source "$src"
     done
 fi
