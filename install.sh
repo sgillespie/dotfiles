@@ -26,6 +26,9 @@ function mkLink {
 }
 
 ### Set up config files
+## Create directories
+mkdir -p "$HOME/.xmonad"
+
 ## Create Links
 mkLink "$DIR/zshrc.zsh" "$HOME/.zshrc"
 mkLink "$DIR/emacs.el" "$HOME/.emacs"
@@ -33,6 +36,8 @@ mkLink "$DIR/screenrc" "$HOME/.screenrc"
 mkLink "$DIR/tmux.conf" "$HOME/.tmux.conf"
 mkLink "$DIR/bashrc.bash" "$HOME/.bashrc"
 mkLink "$DIR/bashrc.bash" "$HOME/.bash_profile"
+mkLink "$DIR/xmonad.hs" "$HOME/.xmonad/xmonad.hs"
+mkLink "$DIR/xmobbarrc.hs" "$HOME/.xmobarrc"
 
 ## Add gitconfig
 git config --global include.path "$DIR/gitconfig"
