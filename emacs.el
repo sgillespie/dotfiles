@@ -68,15 +68,6 @@
 ;; Make shell mode nicer
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-;;; Key Bindings
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
-(global-set-key (kbd "C-c C-r") 'recompile)
-(global-set-key (kbd "C-c C-l") 'visual-line-mode)
-
 ; Haskell local bindings
 (defun haskell-process-cabal-test ()
   "Test the Cabal project"
@@ -120,23 +111,41 @@
                            haskell-mode
 			   ghc
                            groovy-mode
-                           
-                           ; clojure
-                           starter-kit
-                           starter-kit-lisp
-                           starter-kit-bindings
-                           starter-kit-eshell
-                           clojure-mode
-                           cider
 
                            ; javascript
                            flycheck
                            js2-mode
-                           json-mode))
+                           json-mode
+
+                           ; Misc
+                           smex
+                           ido-ubiquitous
+                           find-file-in-repository))
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
 (dolist (p install-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;;; Key Bindings
+(ido-mode 1)
+(ido-everywhere 1)
+(ido-ubiquitous-mode 1)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+(global-set-key (kbd "C-c C-r") 'recompile)
+(global-set-key (kbd "C-c C-l") 'visual-line-mode)
 
 (setq site-el "/usr/share/emacs/site-lisp/")
 (setq home-el "~/.emacs.d/")
@@ -201,13 +210,8 @@
 
 (add-hook 'speedbar-visiting-file-hook 'sr-speedbar-close t)
 
-;;; fonts
-(add-to-list 'default-frame-alist '(font . "Liberation Mono-14"))
+;;; Web
+(require 'w3m-load)
 
-(put 'scroll-left 'disabled nil)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;; fonts
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
