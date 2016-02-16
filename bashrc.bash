@@ -33,6 +33,7 @@ fi
 source $INIT_SCRIPT_DIR/bash.conf/prompt.bash
 
 # aliases
+alias ls="ls --color=auto"
 if [[ ! -n "${EC+DEFINED}" ]]; then
     EC=emacsclient
 fi

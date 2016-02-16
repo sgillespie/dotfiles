@@ -40,7 +40,7 @@ set_prompt () {
     fi
 
     PS1+=":\\t$Reset)"
-    PS1+="── ⟶  "
+    PS1+="── -> "
     PS1+="$Reset"
 }
 PROMPT_COMMAND='set_prompt'
