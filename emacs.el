@@ -116,6 +116,7 @@
                            flycheck
                            js2-mode
                            json-mode
+                           web-mode
 
                            ; Misc
                            smex
@@ -171,7 +172,13 @@
 
 ;;; Javascript
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
+(add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'newline-and-indent)
+            (set (make-local-variable 'electric-indent-functions)
+                 (list (lambda (arg)
+                         'no-indent)))))
 
 (add-hook 'java-mode-hook (lambda ()
 			    (setq c-basic-offset 4
