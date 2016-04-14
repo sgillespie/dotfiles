@@ -10,12 +10,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["black" "red" "green4" "yellow4" "blue3" "magenta4" "cyan4" "white"])
  '(auto-save-default nil)
  '(auto-save-mode nil)
  '(backup-directory-alist (quote (("." . "~/.emacs_backups"))))
+ '(compilation-environment (quote ("TERM=xterm-256color")))
  '(compile-command "./gradle.sh build")
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-safe-themes
+   (quote
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
  '(fill-column 90)
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
@@ -49,9 +52,43 @@
  '(speedbar-update-flag nil)
  '(sr-speedbar-auto-refresh nil)
  '(truncate-lines t)
+ '(web-mode-indent-offset 2)
  '(x-select-enable-clipboard t))
 
 (add-to-list 'load-path "~/.emacs.d/elisp")
+
+;;; Packages
+(require 'package)
+(package-initialize)
+
+(defvar install-packages '(speedbar
+                           sr-speedbar
+			   color-theme
+                           color-theme-sanityinc-tomorrow
+			   color-theme-sanityinc-solarized
+
+                           ; languages
+                           haskell-mode
+			   ghc
+                           groovy-mode
+
+                           ; javascript
+                           flycheck
+                           js2-mode
+                           json-mode
+                           web-mode
+
+                           ; Misc
+                           smex
+                           ido-ubiquitous
+                           find-file-in-repository))
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(dolist (p install-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
 
 ;;; Mode-specific Settings
 (add-to-list 'auto-mode-alist '("capfile" . ruby-mode))
@@ -88,47 +125,8 @@
 (put 'downcase-region 'disabled nil)
 
 ;;; Load environment from shell
-(defun set-exec-path-from-shell-PATH ()
-  (let ((path-from-shell (replace-regexp-in-string
-                          "[ \t\n]*$"
-                          ""
-                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
-
-(when window-system (set-exec-path-from-shell-PATH))
-
-;;; Packages
-(require 'package)
-(package-initialize)
-
-(defvar install-packages '(speedbar
-                           sr-speedbar
-			   color-theme
-			   color-theme-solarized
-
-                           ; languages
-                           haskell-mode
-			   ghc
-                           groovy-mode
-
-                           ; javascript
-                           flycheck
-                           js2-mode
-                           json-mode
-                           web-mode
-
-                           ; Misc
-                           smex
-                           ido-ubiquitous
-                           find-file-in-repository))
-
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(dolist (p install-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(when window-system
+  (exec-path-from-shell-initialize))
 
 ;;; Key Bindings
 (ido-mode 1)
@@ -153,16 +151,19 @@
 
 ;;; Colors
 (require 'color-theme)
-(color-theme-solarized-dark)
+(color-theme-sanityinc-tomorrow-night)
 
 ;;; Flycheck
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+
 (flycheck-add-mode 'javascript-eslint 'js-mode)
 (flycheck-add-mode 'javascript-eslint 'js2-mode)
 (setq-default flycheck-disabled-checkers
   (append flycheck-disabled-checkers
-    '(javascript-jshint)))
+	  '(javascript-jshint)))
+
+
 
 ;;; Groovy
 (autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)

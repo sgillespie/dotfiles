@@ -18,3 +18,5 @@
 [alias]
         ff = merge --ff-only
         nff = merge --no-ff
+        f = fetch --all
+        fff = !git f && git ff
