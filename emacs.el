@@ -85,9 +85,12 @@
                            web-mode
 
                            ; Misc
-                           smex
+                           exec-path-from-shell
+                           find-file-in-repository
                            ido-ubiquitous
-                           find-file-in-repository))
+                           smex))
+
+
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -129,6 +132,39 @@
 
 ;; Override disabled keys
 (put 'downcase-region 'disabled nil)
+
+;;; Packages
+(require 'package)
+(package-initialize)
+
+(defvar install-packages '(speedbar
+                           sr-speedbar
+			   color-theme
+			   color-theme-solarized
+
+                           ; languages
+                           haskell-mode
+			   ghc
+                           groovy-mode
+
+                           ; javascript
+                           flycheck
+                           js2-mode
+                           json-mode
+                           web-mode
+
+                           ; Misc
+                           smex
+                           ido-ubiquitous
+                           find-file-in-repository
+                           w3m))
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(dolist (p install-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
 
 ;;; Load environment from shell
 (when window-system
@@ -182,6 +218,8 @@
 ;;; Javascript
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
+(add-to-list 'auto-mode-alist '("package\\.json" . json-mode))
+(add-to-list 'auto-mode-alist '("\\.babelrc" . json-mode))
 (add-hook 'js2-mode-hook
           (lambda ()
             (local-set-key (kbd "RET") 'newline-and-indent)
