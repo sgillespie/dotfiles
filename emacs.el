@@ -10,6 +10,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   ["black" "red" "green4" "yellow4" "blue3" "magenta4" "cyan4" "white"])
  '(auto-save-default nil)
  '(auto-save-mode nil)
  '(backup-directory-alist (quote (("." . "~/.emacs_backups"))))
@@ -63,6 +67,8 @@
 
 (defvar install-packages '(speedbar
                            sr-speedbar
+
+                           ; Themes
 			   color-theme
                            color-theme-sanityinc-tomorrow
 			   color-theme-sanityinc-solarized
@@ -163,7 +169,9 @@
   (append flycheck-disabled-checkers
 	  '(javascript-jshint)))
 
-
+;;; Compilation
+(add-hook 'compilation-mode-hook
+          (lambda () (font-lock-mode -1)))
 
 ;;; Groovy
 (autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
@@ -218,8 +226,5 @@
 
 (add-hook 'speedbar-visiting-file-hook 'sr-speedbar-close t)
 
-;;; Web
-(require 'w3m-load)
-
 ;;; fonts
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
