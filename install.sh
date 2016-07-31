@@ -38,6 +38,7 @@ mkLink "$DIR/bashrc.bash" "$HOME/.bashrc"
 mkLink "$DIR/bashrc.bash" "$HOME/.bash_profile"
 mkLink "$DIR/xmonad.hs" "$HOME/.xmonad/xmonad.hs"
 mkLink "$DIR/xmobbarrc.hs" "$HOME/.xmobarrc"
+mkLink "$DIR/vimrc.vim" "$HOME/.vimrc"
 
 ## Add gitconfig
 git config --global include.path "$DIR/gitconfig"
