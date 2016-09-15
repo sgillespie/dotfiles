@@ -45,7 +45,7 @@
      ("elpa" . "http://elpa.gnu.org/packages/"))))
  '(speedbar-frame-parameters
    (quote
-    ((width . 45)
+    ((width . 50)
      (minibuffer)
      (border-width . 0)
      (menu-bar-lines . 0)
@@ -72,6 +72,9 @@
 			   color-theme
                            color-theme-sanityinc-tomorrow
 			   color-theme-sanityinc-solarized
+
+                           ; Vim
+                           evil
 
                            ; languages
                            haskell-mode
@@ -128,49 +131,24 @@
   (local-set-key (kbd "C-c t") 'haskell-process-cabal-test))
 
 (add-hook 'haskell-mode-hook 'haskell-key-bindings)
+
 (add-hook 'haskell-cabal-mode-hook 'haskell-key-bindings)
 
 ;; Override disabled keys
 (put 'downcase-region 'disabled nil)
-
-;;; Packages
-(require 'package)
-(package-initialize)
-
-(defvar install-packages '(speedbar
-                           sr-speedbar
-			   color-theme
-			   color-theme-solarized
-
-                           ; languages
-                           haskell-mode
-			   ghc
-                           groovy-mode
-
-                           ; javascript
-                           flycheck
-                           js2-mode
-                           json-mode
-                           web-mode
-
-                           ; Misc
-                           smex
-                           ido-ubiquitous
-                           find-file-in-repository
-                           w3m))
-
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(dolist (p install-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
 
 ;;; Load environment from shell
 (when window-system
   (exec-path-from-shell-initialize))
 
 ;;; Key Bindings
+(require 'evil)
+(evil-mode 1)
+
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'neotree-enter))) 
+
 (ido-mode 1)
 (ido-everywhere 1)
 (ido-ubiquitous-mode 1)
