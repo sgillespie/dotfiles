@@ -37,6 +37,7 @@ set hidden                          " Hide buffer when abandoned
 set hlsearch                        " Highlight current matches
 set ignorecase                      " Ignore case when searching
 set incsearch                       " Incremental search
+set iskeyword+=-                    " - is not a word separator
 set laststatus=2                    " Always show status line
 set modelines=0
 set nobackup                        " Don't create a backup of a file
@@ -103,10 +104,17 @@ nnoremap <leader>bd :MBEbd
 
 " Dispatch settings
 nnoremap <leader>dd :Dispatch 
+nnoremap <leader>dm :Dispatch make<CR>
 nnoremap <leader>do :Copen<CR>
 
 " Go settings
 let g:go_fmt_command = "goimports"
+
+" Haskell settings
+augroup haskell
+    autocmd!
+    autocmd FileType haskell setlocal tabstop=8 expandtab softtabstop=4 shiftwidth=4 shiftround
+augroup END
 
 augroup vim_startup
   "Skip this for now
