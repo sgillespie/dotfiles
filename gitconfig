@@ -13,8 +13,6 @@
 	decorate = short
 [push]
 	default = tracking
-[http]
-	sslVerify = false
 [alias]
         ff = merge --ff-only
         nff = merge --no-ff
