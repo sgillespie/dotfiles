@@ -38,6 +38,7 @@
  '(js2-strict-var-hides-function-arg-warning nil)
  '(js2-strict-var-redeclaration-warning nil)
  '(make-backup-files nil)
+ '(neo-show-hidden-files t)
  '(nxml-child-indent 2)
  '(package-archives
    (quote
@@ -227,6 +228,18 @@
 
 ;;; magit
 (global-set-key "\C-cg" 'magit-status)
+
+;;; neotree
+(require 'neotree)
+(add-hook 'neotree-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+(global-set-key (kbd "C-c n") 'neotree-toggle)
+
 ;;; speedbar
 (require 'speedbar)
 (require 'sr-speedbar)
