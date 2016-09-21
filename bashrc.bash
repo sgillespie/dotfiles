@@ -37,12 +37,14 @@ if [[ ! -n "${EC+DEFINED}" ]]; then
     EC=emacsclient
 fi
 
+# Variables
 alias ec="$EC -n"
 export EDITOR="$EC"
 
 # make sure color output is set
 export CLICOLOR=
 
+# Make it easy to redirect output to emacs
 function ecbuffer {
     TMP="$(mktemp /tmp/emacsstdinXXX)"
     cat > $TMP
