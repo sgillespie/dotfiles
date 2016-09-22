@@ -38,7 +38,6 @@
  '(js2-strict-var-hides-function-arg-warning nil)
  '(js2-strict-var-redeclaration-warning nil)
  '(make-backup-files nil)
- '(neo-show-hidden-files t)
  '(nxml-child-indent 2)
  '(package-archives
    (quote
@@ -92,9 +91,8 @@
                            exec-path-from-shell
                            find-file-in-repository
                            ido-ubiquitous
+                           neotree
                            smex))
-
-
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -235,8 +233,13 @@
             (lambda ()
               (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
               (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "C") 'neotree-change-root)
+              (define-key evil-normal-state-local-map (kbd "D") 'neotree-delete-node)
+              (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
+              (define-key evil-normal-state-local-map (kbd "R") 'neotree-rename-node)
+              (define-key evil-normal-state-local-map (kbd "P") 'neotree-copy-node)
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)))
 
 (global-set-key (kbd "C-c n") 'neotree-toggle)
 
