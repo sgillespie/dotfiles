@@ -11,7 +11,7 @@ Plug 'nlknguyen/papercolor-theme'
 Plug 'scrooloose/nerdtree', {'do' : 'make'}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
-Plug 'tfnico/vim-gradle'
+Plug 'w0ng/vim-hybrid'
 
 call plug#end()
 filetype plugin indent on
@@ -70,11 +70,11 @@ if has("gui_macvim")
 endif
 
 set background=dark
-:colorscheme PaperColor
+:colorscheme hybrid
 
 " Set up GUI options
 if has("gui_running")
-  :set guifont=Source\ Code\ Pro\ 12
+  :set guifont=Source\ Code\ Pro\ 14
 endif
 
 
