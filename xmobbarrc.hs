@@ -60,7 +60,7 @@ Config {
                 50,
 
         -- battery monitor
-     Run Battery [ "--template", "Battery: <acstatus>",
+     Run BatteryP ["BAT0"] [ "--template", "Battery: <acstatus>",
                    "--Low", "10",        -- units: %
                    "--High", "80",        -- units: %
                    "--low", "darkred",
