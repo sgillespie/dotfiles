@@ -75,6 +75,7 @@
 
                            ; Vim
                            evil
+                           evil-magit
 
                            ; languages
                            haskell-mode
@@ -225,6 +226,7 @@
 ; (desktop-save-mode 1)
 
 ;;; magit
+(require 'evil-magit)
 (global-set-key "\C-cg" 'magit-status)
 
 ;;; neotree
@@ -241,7 +243,8 @@
               (define-key evil-normal-state-local-map (kbd "P") 'neotree-copy-node)
               (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)))
 
-(global-set-key (kbd "C-c n") 'neotree-toggle)
+(global-set-key (kbd "C-c C-n") 'neotree-toggle)
+(global-set-key (kbd "C-c n") 'neotree-show)
 
 ;;; speedbar
 (require 'speedbar)
