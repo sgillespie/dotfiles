@@ -56,8 +56,7 @@
  '(speedbar-update-flag nil)
  '(sr-speedbar-auto-refresh nil)
  '(truncate-lines t)
- '(web-mode-indent-offset 2)
- '(x-select-enable-clipboard t))
+ '(web-mode-indent-offset 2))
 
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
@@ -144,10 +143,6 @@
 ;;; Key Bindings
 (require 'evil)
 (evil-mode 1)
-
-(add-hook 'neotree-mode-hook
-          (lambda ()
-            (local-set-key (kbd "RET") 'neotree-enter))) 
 
 (ido-mode 1)
 (ido-everywhere 1)
@@ -243,8 +238,8 @@
               (define-key evil-normal-state-local-map (kbd "P") 'neotree-copy-node)
               (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)))
 
-(global-set-key (kbd "C-c C-n") 'neotree-toggle)
 (global-set-key (kbd "C-c n") 'neotree-show)
+(global-set-key (kbd "C-c C-n") 'neotree-toggle)
 
 ;;; speedbar
 (require 'speedbar)
