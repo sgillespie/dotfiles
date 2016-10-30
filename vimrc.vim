@@ -86,7 +86,7 @@ augroup END
 
 " NERDTree settings 
 let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
-let NERDTreeShowBookmarks=1
+let NERDTreeShowBookmarks=0
 let NERDTreeShowFiles=1
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=0
@@ -98,9 +98,10 @@ nnoremap <leader>tc :NERDTreeCWD<CR>
 nnoremap <leader>tf :NERDTreeClose<CR>:NERDTreeFind<CR>
 
 " Minibuf Explorer settings
+nnoremap <leader>bo :MBEOpen<CR>
 nnoremap <leader>bt :MBEToggle<CR>
 nnoremap <leader>bf :MBEFocus<CR>
-nnoremap <leader>bd :MBEbd
+nnoremap <leader>bd :MBEbd<CR>
 
 " Dispatch settings
 nnoremap <leader>dd :Dispatch 
