@@ -10,7 +10,7 @@ Config {
   -- layout
   sepChar  = "%",   -- delineator between plugin names and straight text
   alignSep = "}{",  -- separator between left-right alignment
-  template = "%battery% | %multicpu% | %memory% } %date% { %KJAX% ",
+  template = "%battery% | %multicpu% | %memory% } %date% { Volume: <fc=green>%volume%</fc> | Weather: %KJAX% ",
 
   -- general behavior
   lowerOnStart     = False,    -- send to bottom of window stack on start
@@ -78,5 +78,8 @@ Config {
 
      -- time and date indicator 
      --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-     Run Date "<fc=#AAAAAA>%a %H:%M</fc>" "date" 100]]
+     Run Date "<fc=#AAAAAA>%a %H:%M</fc>" "date" 100,
+     Run Com "/home/sgillespie/dev/dotfiles/xmobar.d/volume.sh" [] "volume" 5]
+
   }
+-- amixer get Master | sed s/%.*$// | sed 's/^.*\[//' | tail -n 1
