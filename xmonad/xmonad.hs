@@ -14,7 +14,7 @@ xmobar' = xmobar
 
 config' = defaultConfig {
   layoutHook  = avoidStruts $ layoutHook defaultConfig,
-  manageHook  = manageDocks <+> manageHook' <+> manageHook defaultConfig,
+  manageHook  = manageDocks <+> manageHook defaultConfig,
   startupHook = setWMName "LG3D",
 
   borderWidth        = 1,
@@ -37,10 +37,6 @@ additionalKeys' = flip additionalKeys $
    ((mod4Mask .|. mod1Mask, xK_e), spawn "emacs"),
    ((mod4Mask .|. mod1Mask, xK_f), spawn "firefox"),
    ((mod4Mask .|. mod1Mask, xK_i), spawn "idea.sh"),
-   ((mod4Mask .|. mod1Mask, xK_f), spawn "gvim"),
    ((mod4Mask .|. mod1Mask, xK_t), spawn "tor-browser-en"),
-   ((mod4Mask .|. mod1Mask, xK_o), restart "/home/sgillespie/.xmonad/obtoxmd.sh" True)]
-
-manageHook' = composeAll
-              [className =? "jetbrains-idea-ce" --> doFloat]
+   ((mod4Mask .|. mod1Mask, xK_v), spawn "gvim")]
 
