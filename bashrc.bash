@@ -39,7 +39,7 @@ fi
 
 # Variables
 alias ec="$EC -n"
-export EDITOR="$EC"
+export EDITOR="gvim -f"
 
 # make sure color output is set
 export CLICOLOR=
