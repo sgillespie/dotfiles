@@ -109,9 +109,9 @@
 (add-hook 'haskell-mode-hook 'haskell-key-bindings)
 (add-hook 'haskell-cabal-mode-hook 'haskell-key-bindings)
 
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+; (autoload 'ghc-init "ghc" nil t)
+; (autoload 'ghc-debug "ghc" nil t)
+; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 ;; Make shell mode nicer
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
@@ -234,9 +234,11 @@
               (define-key evil-normal-state-local-map (kbd "C") 'neotree-change-root)
               (define-key evil-normal-state-local-map (kbd "D") 'neotree-delete-node)
               (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
+              (define-key evil-normal-state-local-map (kbd "M") 'neotree-create-node)
               (define-key evil-normal-state-local-map (kbd "R") 'neotree-rename-node)
               (define-key evil-normal-state-local-map (kbd "P") 'neotree-copy-node)
-              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)))
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "r") 'neotree-refresh)))
 
 (global-set-key (kbd "C-c n") 'neotree-show)
 (global-set-key (kbd "C-c C-n") 'neotree-toggle)
@@ -257,4 +259,4 @@
 (add-hook 'speedbar-visiting-file-hook 'sr-speedbar-close t)
 
 ;;; fonts
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
