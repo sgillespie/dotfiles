@@ -5,13 +5,17 @@ set nocompatible
 filetype off
 call plug#begin(expand('~/.vim/plugged'))
 
+Plug 'ap/vim-buftabline'
+Plug 'diepm/vim-rest-console'
 Plug 'fatih/vim-go'
-Plug 'fholgado/minibufexpl.vim'
 Plug 'nlknguyen/papercolor-theme'
 Plug 'scrooloose/nerdtree', {'do' : 'make'}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'w0ng/vim-hybrid'
+
+" Experimental
+Plug 'rhysd/committia.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -96,16 +100,16 @@ nnoremap <leader>f :NERDTreeFocus<CR>
 nnoremap <leader>tc :NERDTreeCWD<CR>
 nnoremap <leader>tf :NERDTreeClose<CR>:NERDTreeFind<CR>
 
-" Minibuf Explorer settings
-nnoremap <leader>bo :MBEOpen<CR>
-nnoremap <leader>bt :MBEToggle<CR>
-nnoremap <leader>bf :MBEFocus<CR>
-nnoremap <leader>bd :MBEbd<CR>
-
 " Dispatch settings
 nnoremap <leader>dd :Dispatch 
 nnoremap <leader>dm :Dispatch make<CR>
 nnoremap <leader>do :Copen<CR>
+
+" Buffer bindings
+nnoremap <leader>bn :enew<cr>
+nnoremap <c-p> :bprevious<cr>
+nnoremap <c-n> :bnext<cr>
+nnoremap <leader>bd :bprevious <bar> bdelete #<cr>
 
 " Go settings
 let g:go_fmt_command = "goimports"
@@ -115,6 +119,16 @@ augroup haskell
     autocmd!
     autocmd FileType haskell setlocal tabstop=8 expandtab softtabstop=4 shiftwidth=4 shiftround
 augroup END
+
+" HTML settings
+augroup html
+    autocmd!
+    autocmd FileType html setlocal tabstop=2 expandtab softtabstop=2 shiftwidth=2 shiftround
+augroup END
+
+" ReST settings
+let g:vrc_allow_get_request_body = 1
+nnoremap <leader>rc :set filetype=rest<cr> 
 
 augroup vim_startup
   "Skip this for now
@@ -128,20 +142,3 @@ exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' 
 exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('jsx', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('cjsx', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('go', 'cyan', 'none', 'cyan', '#151515')
-"
