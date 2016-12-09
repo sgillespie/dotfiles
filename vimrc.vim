@@ -12,6 +12,7 @@ Plug 'nlknguyen/papercolor-theme'
 Plug 'scrooloose/nerdtree', {'do' : 'make'}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-syntastic/syntastic'
 Plug 'w0ng/vim-hybrid'
 
 " Experimental
@@ -32,7 +33,7 @@ set directory=/tmp                  " Directory for swap files
 set encoding=utf-8                  " Set file encoding
 set expandtab                       " Expand tabs to spaces
 set fillchars=vert:║
-set gdefault                        " Set default to global
+set nogdefault                      " Set default to global
 set guioptions-=L                   " Remove scrollbar
 set guioptions-=m                   " Remove menubar
 set guioptions-=T                   " Remove toolbar
@@ -67,18 +68,20 @@ set title                           " Set titlebar to current file
 set ttyfast                         " Fast terminal connection (faster redraw)
 set visualbell                      " Use a visual bell instead of audible bell
 set wildmenu                        " Enhanced command-line completion
-set wildmode=list:longest           " List all matches
+set wildmode=list:longest
 
-if has("gui_macvim")
-  set macmeta                       " Enable Option key for key bindings
-endif
+set statusline=%f\ %h%w%m%r\ 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%=%(%l,%c%V\ %=\ %P%)
 
 set background=dark
 :colorscheme hybrid
 
 " Set up GUI options
 if has("gui_running")
-  :set guifont=Source\ Code\ Pro\ 13
+  :set guifont=Source\ Code\ Pro:h14
 endif
 
 " Source .vimrc on save
@@ -98,6 +101,7 @@ let NERDTreeMouseMode=2
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFocus<CR>
 nnoremap <leader>tc :NERDTreeCWD<CR>
+nnoremap <leader>td :NERDTreeClose<CR>
 nnoremap <leader>tf :NERDTreeClose<CR>:NERDTreeFind<CR>
 
 " Dispatch settings
@@ -110,6 +114,17 @@ nnoremap <leader>bn :enew<cr>
 nnoremap <c-p> :bprevious<cr>
 nnoremap <c-n> :bnext<cr>
 nnoremap <leader>bd :bprevious <bar> bdelete #<cr>
+
+" Delete trailing whitespace
+nnoremap <leader>w :%s/\s*$//<cr>:nohlsearch<cr>
+
+" Syntastic settings
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_html_checkers = []
 
 " Go settings
 let g:go_fmt_command = "goimports"
@@ -125,6 +140,12 @@ augroup html
     autocmd!
     autocmd FileType html setlocal tabstop=2 expandtab softtabstop=2 shiftwidth=2 shiftround
 augroup END
+
+augroup js
+    autocmd!
+    autocmd FileType json setlocal tabstop=2 expandtab softtabstop=2 shiftwidth=2 shiftround
+    autocmd FileType javascript setlocal tabstop=2 expandtab softtabstop=2 shiftwidth=2 shiftround
+augroup end
 
 " ReST settings
 let g:vrc_allow_get_request_body = 1
