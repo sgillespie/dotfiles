@@ -28,6 +28,7 @@ function mkLink {
 ### Set up config files
 ## Create directories
 mkdir -p "$HOME/.xmonad"
+mkdir -p "$HOME/.i3"
 
 ## Create Links
 mkLink "$DIR/zshrc.zsh" "$HOME/.zshrc"
@@ -41,6 +42,8 @@ mkLink "$DIR/xmonad/volume.sh" "$HOME/.xmonad/volume.sh"
 mkLink "$DIR/xmobarrc.hs" "$HOME/.xmobarrc"
 mkLink "$DIR/vimrc.vim" "$HOME/.vimrc"
 mkLink "$DIR/Xresources" "$HOME/.Xresources"
+mkLink "$DIR/i3.conf" "$HOME/.i3/config"
+mkLink "$DIR/i3status.conf" "$HOME/.i3status.conf"
 
 ## Add gitconfig
 git config --global include.path "$DIR/gitconfig"
