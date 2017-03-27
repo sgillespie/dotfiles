@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ### Find the current script dir
 ### From http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
@@ -40,6 +40,7 @@ mkLink "$DIR/xmonad/xmonad.hs" "$HOME/.xmonad/xmonad.hs"
 mkLink "$DIR/xmonad/volume.sh" "$HOME/.xmonad/volume.sh"
 mkLink "$DIR/xmobarrc.hs" "$HOME/.xmobarrc"
 mkLink "$DIR/vimrc.vim" "$HOME/.vimrc"
+mkLink "$DIR/Xresources" "$HOME/.Xresources"
 
 ## Add gitconfig
 git config --global include.path "$DIR/gitconfig"
