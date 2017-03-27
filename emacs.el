@@ -72,10 +72,6 @@
                            color-theme-sanityinc-tomorrow
 			   color-theme-sanityinc-solarized
 
-                           ; Vim
-                           evil
-                           evil-magit
-
                            ; languages
                            haskell-mode
 			   ghc
@@ -86,6 +82,9 @@
                            js2-mode
                            json-mode
                            web-mode
+
+                           ; nix
+                           nix-mode
 
                            ; Misc
                            exec-path-from-shell
@@ -141,9 +140,6 @@
   (exec-path-from-shell-initialize))
 
 ;;; Key Bindings
-(require 'evil)
-(evil-mode 1)
-
 (ido-mode 1)
 (ido-everywhere 1)
 (ido-ubiquitous-mode 1)
@@ -221,24 +217,10 @@
 ; (desktop-save-mode 1)
 
 ;;; magit
-(require 'evil-magit)
 (global-set-key "\C-cg" 'magit-status)
 
 ;;; neotree
 (require 'neotree)
-(add-hook 'neotree-mode-hook
-            (lambda ()
-              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "C") 'neotree-change-root)
-              (define-key evil-normal-state-local-map (kbd "D") 'neotree-delete-node)
-              (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
-              (define-key evil-normal-state-local-map (kbd "M") 'neotree-create-node)
-              (define-key evil-normal-state-local-map (kbd "R") 'neotree-rename-node)
-              (define-key evil-normal-state-local-map (kbd "P") 'neotree-copy-node)
-              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-              (define-key evil-normal-state-local-map (kbd "r") 'neotree-refresh)))
 
 (global-set-key (kbd "C-c n") 'neotree-show)
 (global-set-key (kbd "C-c C-n") 'neotree-toggle)
