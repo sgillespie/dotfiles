@@ -81,7 +81,7 @@ set background=dark
 
 " Set up GUI options
 if has("gui_running")
-  :set guifont=Source\ Code\ Pro:h14
+  :set guifont=Source\ Code\ Pro\ 13
 endif
 
 " Source .vimrc on save
