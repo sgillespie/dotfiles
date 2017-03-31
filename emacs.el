@@ -38,11 +38,15 @@
  '(js2-strict-var-hides-function-arg-warning nil)
  '(js2-strict-var-redeclaration-warning nil)
  '(make-backup-files nil)
+ '(neo-window-width 35)
  '(nxml-child-indent 2)
  '(package-archives
    (quote
     (("melpa" . "http://melpa.org/packages/")
      ("elpa" . "http://elpa.gnu.org/packages/"))))
+ '(package-selected-packages
+   (quote
+    (magit magit-filenotify magit-find-file emacsql emacsql-mysql smex neotree ido-ubiquitous find-file-in-repository exec-path-from-shell nix-mode web-mode json-mode js2-mode flycheck groovy-mode ghc haskell-mode color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow color-theme sr-speedbar)))
  '(speedbar-frame-parameters
    (quote
     ((width . 50)
@@ -73,9 +77,11 @@
 			   color-theme-sanityinc-solarized
 
                            ; languages
+                           dockerfile-mode
                            haskell-mode
 			   ghc
                            groovy-mode
+                           yaml-mode
 
                            ; javascript
                            flycheck
@@ -85,6 +91,10 @@
 
                            ; nix
                            nix-mode
+
+                           ; sql
+                           emacsql
+                           emacsql-mysql
 
                            ; Misc
                            exec-path-from-shell
