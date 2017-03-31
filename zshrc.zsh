@@ -21,7 +21,10 @@ if [[ -d ~/.zsh.d ]]; then
 fi
 
 # zsh completion
-fpath=("$INIT_SCRIPT_DIR" $fpath)
+autoload -Uz compinit
+compinit
+
+fpath=(~/.zsh.d $fpath)
 
 # Prompt
 source $INIT_SCRIPT_DIR/prompt.zsh
