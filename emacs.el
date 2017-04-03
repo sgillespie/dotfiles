@@ -101,6 +101,7 @@
                            find-file-in-repository
                            ido-ubiquitous
                            neotree
+                           restclient
                            smex))
 
 (when (not package-archive-contents)
@@ -112,6 +113,7 @@
 
 ;;; Mode-specific Settings
 (add-to-list 'auto-mode-alist '("capfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
 
 ;; Haskell mode
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
