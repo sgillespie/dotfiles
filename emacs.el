@@ -68,10 +68,7 @@
 (require 'package)
 (package-initialize)
 
-(defvar install-packages '(speedbar
-                           sr-speedbar
-
-                           ; Themes
+(defvar install-packages '(; Themes
 			   color-theme
                            color-theme-sanityinc-tomorrow
 			   color-theme-sanityinc-solarized
@@ -100,6 +97,7 @@
                            exec-path-from-shell
                            find-file-in-repository
                            ido-ubiquitous
+                           magit
                            neotree
                            restclient
                            smex))
@@ -234,23 +232,15 @@
 ;;; neotree
 (require 'neotree)
 
-(global-set-key (kbd "C-c n") 'neotree-show)
-(global-set-key (kbd "C-c C-n") 'neotree-toggle)
-
-;;; speedbar
-(require 'speedbar)
-(require 'sr-speedbar)
-
-(defun sr-speedbar-get-focus ()
-  (interactive)
-  (progn
-    (sr-speedbar-open)
-    (sr-speedbar-select-window)))
-
-(global-set-key "\C-c\C-s" 'sr-speedbar-toggle)
-(global-set-key "\C-cs" 'sr-speedbar-get-focus)
-
-(add-hook 'speedbar-visiting-file-hook 'sr-speedbar-close t)
+(global-set-key (kbd "C-c f") 'neotree-show)
+(global-set-key (kbd "C-c C-f") 'neotree-toggle)
 
 ;;; fonts
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
