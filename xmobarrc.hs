@@ -79,7 +79,8 @@ Config {
      -- time and date indicator 
      --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
      Run Date "<fc=#AAAAAA>%a %H:%M</fc>" "date" 100,
-     Run Com ".xmonad/volume.sh" [] "volume" 5]
+     Run Com "/home/sgillespie/.xmonad/volume.sh" [] "volume" 5
+     ]
 
   }
 -- amixer get Master | sed s/%.*$// | sed 's/^.*\[//' | tail -n 1

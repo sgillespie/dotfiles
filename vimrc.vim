@@ -8,9 +8,11 @@ call plug#begin(expand('~/.vim/plugged'))
 Plug 'ap/vim-buftabline'
 Plug 'diepm/vim-rest-console'
 Plug 'fatih/vim-go'
+Plug 'guns/vim-clojure-static'
 Plug 'nlknguyen/papercolor-theme'
 Plug 'scrooloose/nerdtree', {'do' : 'make'}
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-syntastic/syntastic'
 Plug 'w0ng/vim-hybrid'
@@ -55,7 +57,7 @@ set pastetoggle=<F3>                " Key to toggle paste mode
 set ruler                           " Show current line and column
 set scrolloff=0                     " Minimum number of lines above/below cursor
 set shiftround                      " Round indentation to multiple of shiftwidth
-set shiftwidth=4                    " Number of spaces to indent
+set shiftwidth=2                    " Number of spaces to indent
 set showcmd                         " Show command at bottom of screen
 set showmatch                       " Show matching bracker
 set showmode                        " Show the current mode
@@ -63,7 +65,7 @@ set smartcase                       " Override ignorecase when search string has
 set smarttab                        " Use shiftwidth when inserting tabs at beginning of line
 set softtabstop=2                   " Number of spaces for a tab when editing
 set t_Co=256                        " Set 256 colors for terminal vim
-set tabstop=4                       " Number of spaces for a tab
+set tabstop=2                       " Number of spaces for a tab
 set title                           " Set titlebar to current file
 set ttyfast                         " Fast terminal connection (faster redraw)
 set visualbell                      " Use a visual bell instead of audible bell
@@ -94,7 +96,7 @@ augroup END
 let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
 let NERDTreeShowBookmarks=0
 let NERDTreeShowFiles=1
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 let NERDTreeQuitOnOpen=0
 let NERDTreeHighlightCursorline=1
 let NERDTreeMouseMode=2
@@ -132,7 +134,7 @@ let g:go_fmt_command = "goimports"
 " Haskell settings
 augroup haskell
     autocmd!
-    autocmd FileType haskell setlocal tabstop=8 expandtab softtabstop=4 shiftwidth=4 shiftround
+    autocmd FileType haskell setlocal tabstop=8 expandtab softtabstop=2 shiftwidth=2 shiftround
 augroup END
 
 " HTML settings
@@ -143,6 +145,7 @@ augroup END
 
 augroup js
     autocmd!
+    autocmd FileType yaml setlocal tabstop=2 expandtab softtabstop=2 shiftwidth=2 shiftround
     autocmd FileType json setlocal tabstop=2 expandtab softtabstop=2 shiftwidth=2 shiftround
     autocmd FileType javascript setlocal tabstop=2 expandtab softtabstop=2 shiftwidth=2 shiftround
 augroup end
