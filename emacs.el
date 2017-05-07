@@ -150,6 +150,22 @@
   (exec-path-from-shell-initialize))
 
 ;;; Key Bindings
+(defvar personal-keys-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    map)
+  "personal-keys-minor-mode keymap.")
+
+(define-minor-mode personal-keys-minor-mode
+  "A minor mode so that my key settings override annoying major modes."
+  :init-value t
+  :lighter " personal-keys")
+
+(personal-keys-minor-mode 1)
+
+; Disable my keys in minibuffer
+(add-hook 'minibuffer-setup-hook
+          (lambda () (personal-keys-minor-mode 0)))
+
 (ido-mode 1)
 (ido-everywhere 1)
 (ido-ubiquitous-mode 1)
@@ -158,6 +174,13 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(defun prev-window ()
+  (interactive)
+  (other-window -1))
+
+(define-key personal-keys-minor-mode-map (kbd "C-c n") 'other-window)
+(define-key personal-keys-minor-mode-map (kbd "C-c p") 'prev-window)
 
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -206,16 +229,13 @@
                  (list (lambda (arg)
                          'no-indent)))))
 
-(add-hook 'java-mode-hook (lambda ()
-			    (setq c-basic-offset 2
-				  tab-width 2
-				  indent-tabs-mode nil)))
-			    
+(defun java-like-mode-hook ()
+  (setq c-basic-offset 2
+        tab-width 2
+        indent-tabs-mode nil))
 
-(add-hook 'groovy-mode-hook (lambda ()
-			      (setq c-basic-offset 2
-				    tab-width 2
-				    indent-tabs-mode nil)))
+(add-hook 'java-mode-hook 'java-like-mode-hook)
+(add-hook 'groovy-mode-hook 'java-like-mode-hook)
 
 ;;; UI
 (line-number-mode 1)
@@ -227,16 +247,19 @@
 ; (desktop-save-mode 1)
 
 ;;; magit
-(global-set-key "\C-cg" 'magit-status)
+(define-key personal-keys-minor-mode-map
+  (kbd "C-c g") 'magit-status)
 
 ;;; neotree
 (require 'neotree)
 
-(global-set-key (kbd "C-c f") 'neotree-show)
-(global-set-key (kbd "C-c C-f") 'neotree-toggle)
+(define-key personal-keys-minor-mode-map
+  (kbd "C-c f") 'neotree-show)
+(define-key personal-keys-minor-mode-map
+  (kbd "C-c C-f") 'neotree-show)
 
 ;;; fonts
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
+(add-to-list 'default-frame-alist '(font . "Source Code Pro:pixelsize=16:weight=normal"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
