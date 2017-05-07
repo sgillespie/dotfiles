@@ -118,29 +118,8 @@
 (add-hook 'haskell-mode-hook 'haskell-key-bindings)
 (add-hook 'haskell-cabal-mode-hook 'haskell-key-bindings)
 
-; (autoload 'ghc-init "ghc" nil t)
-; (autoload 'ghc-debug "ghc" nil t)
-; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-
 ;; Make shell mode nicer
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-; Haskell local bindings
-(defun haskell-process-cabal-test ()
-  "Test the Cabal project"
-  (interactive)
-  (haskell-process-do-cabal "test --show-details=failures")
-  (haskell-process-add-cabal-autogen))
-
-(defun haskell-key-bindings ()
-  (interactive)
-  (local-set-key (kbd "C-c c") 'haskell-process-cabal)
-  (local-set-key (kbd "C-c C-c") 'haskell-process-cabal-build)
-  (local-set-key (kbd "C-c t") 'haskell-process-cabal-test))
-
-(add-hook 'haskell-mode-hook 'haskell-key-bindings)
-
-(add-hook 'haskell-cabal-mode-hook 'haskell-key-bindings)
 
 ;; Override disabled keys
 (put 'downcase-region 'disabled nil)
