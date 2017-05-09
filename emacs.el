@@ -115,8 +115,6 @@
 
 ;; Haskell mode
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'haskell-key-bindings)
-(add-hook 'haskell-cabal-mode-hook 'haskell-key-bindings)
 
 ;; Make shell mode nicer
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
@@ -235,7 +233,7 @@
 (define-key personal-keys-minor-mode-map
   (kbd "C-c f") 'neotree-show)
 (define-key personal-keys-minor-mode-map
-  (kbd "C-c C-f") 'neotree-show)
+  (kbd "C-c C-f") 'neotree-toggle)
 
 ;;; fonts
 (add-to-list 'default-frame-alist '(font . "Source Code Pro:pixelsize=16:weight=normal"))
