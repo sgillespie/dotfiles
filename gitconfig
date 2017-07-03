@@ -1,5 +1,6 @@
 [merge]
 	defaultToUpstream = true
+	tool = gvimdiff
 [diff]
 	mnemonicprefix = true
 [rerere]
