@@ -14,6 +14,7 @@ Plug 'scrooloose/nerdtree', {'do' : 'make'}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/dbext.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'w0ng/vim-hybrid'
 
@@ -57,15 +58,15 @@ set pastetoggle=<F3>                " Key to toggle paste mode
 set ruler                           " Show current line and column
 set scrolloff=0                     " Minimum number of lines above/below cursor
 set shiftround                      " Round indentation to multiple of shiftwidth
-set shiftwidth=2                    " Number of spaces to indent
+set shiftwidth=4                    " Number of spaces to indent
 set showcmd                         " Show command at bottom of screen
 set showmatch                       " Show matching bracker
 set showmode                        " Show the current mode
 set smartcase                       " Override ignorecase when search string has upper case characters
 set smarttab                        " Use shiftwidth when inserting tabs at beginning of line
-set softtabstop=2                   " Number of spaces for a tab when editing
+set softtabstop=4                   " Number of spaces for a tab when editing
 set t_Co=256                        " Set 256 colors for terminal vim
-set tabstop=2                       " Number of spaces for a tab
+set tabstop=4                       " Number of spaces for a tab
 set title                           " Set titlebar to current file
 set ttyfast                         " Fast terminal connection (faster redraw)
 set visualbell                      " Use a visual bell instead of audible bell
