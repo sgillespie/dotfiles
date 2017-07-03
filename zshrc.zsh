@@ -35,11 +35,17 @@ if [[ ! -n "${EC+DEFINED}" ]]; then
     EC=emacsclient
 fi
 
-alias ec="$EC -n"
-export EDITOR="$EC"
-
 # make sure color output is set
 export CLICOLOR=
+
+# SSH Agent, if we can find it
+if [[ -S "${XDG_RUNTIME_DIR}/ssh-agent.socket" ]]; then
+    export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+fi
+
+# Editors
+alias ec="$EC -n"
+export EDITOR="gvim --nofork"
 
 function ecbuffer {
     TMP="$(mktemp /tmp/emacsstdinXXX)"
@@ -47,3 +53,4 @@ function ecbuffer {
     ec --alternate-editor /usr/bin/false --eval "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"${TMP}\"))"
     rm $TMP
 }
+source <(kubectl completion zsh)
