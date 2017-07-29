@@ -1,5 +1,5 @@
 " Load vim-plug {{{
-set shell=/bin/sh
+set shell=/bin/zsh
 set nocompatible
 
 filetype off
@@ -9,6 +9,8 @@ Plug 'ap/vim-buftabline'
 Plug 'diepm/vim-rest-console'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
+Plug 'jreybert/vimagit'
+Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'nlknguyen/papercolor-theme'
 Plug 'scrooloose/nerdtree', {'do' : 'make'}
 Plug 'tpope/vim-dispatch'
@@ -122,10 +124,12 @@ nnoremap <leader>bd :bprevious <bar> bdelete #<cr>
 nnoremap <leader>w :%s/\s*$//<cr>:nohlsearch<cr>
 
 " Syntastic settings
-let g:syntastic_always_populate_loc_list = 0
+let $PATH = expand("$HOME/.local/bin:").$PATH   " Nasty hack add $HOME to $PATH
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_html_checkers = []
 
