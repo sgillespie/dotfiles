@@ -20,11 +20,17 @@ if [[ -d ~/.zsh.d ]]; then
     done
 fi
 
+# History
+HISTFILE=~/.histfile
+HISTSIZE=9999
+SAVEHIST=9999
+
+# Key bindings
+bindkey -e
+
 # zsh completion
 autoload -Uz compinit
 compinit
-
-fpath=(~/.zsh.d $fpath)
 
 # Prompt
 source $INIT_SCRIPT_DIR/prompt.zsh
@@ -34,6 +40,9 @@ setprompt
 if [[ ! -n "${EC+DEFINED}" ]]; then
     EC=emacsclient
 fi
+
+alias ec="$EC -n"
+export EDITOR="gvim --nofork"
 
 # make sure color output is set
 export CLICOLOR=
@@ -53,4 +62,4 @@ function ecbuffer {
     ec --alternate-editor /usr/bin/false --eval "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"${TMP}\"))"
     rm $TMP
 }
-source <(kubectl completion zsh)
+
