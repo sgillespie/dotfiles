@@ -5,13 +5,13 @@ set nocompatible
 filetype off
 call plug#begin(expand('~/.vim/plugged'))
 
+Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'ap/vim-buftabline'
 Plug 'diepm/vim-rest-console'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
 Plug 'jreybert/vimagit'
 Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'nlknguyen/papercolor-theme'
 Plug 'scrooloose/nerdtree', {'do' : 'make'}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace'
@@ -81,8 +81,9 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline+=%=%(%l,%c%V\ %=\ %P%)
 
+syntax enable
 set background=dark
-:colorscheme hybrid
+colorscheme Tomorrow-Night
 
 " Set up GUI options
 if has("gui_running")
