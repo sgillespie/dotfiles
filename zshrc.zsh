@@ -33,8 +33,8 @@ autoload -Uz compinit
 compinit
 
 # Prompt
-source $INIT_SCRIPT_DIR/prompt.zsh
-setprompt
+source $INIT_SCRIPT_DIR/zsh.conf/prompt.zsh
+set_prompt
 
 # aliases
 if [[ ! -n "${EC+DEFINED}" ]]; then

@@ -133,6 +133,17 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_html_checkers = []
 
+" DBExt settings
+set modeline
+set modelines=5
+
+let g:dbext_default_type = "MySQL"
+let g:dbext_default_user = ""
+let g:dbext_default_password = ""
+let g:dbext_default_dbname = "@askb"
+let g:dbext_default_host = "@askb"
+let g:dbext_default_prompt_for_variables = 0
+
 " Go settings
 let g:go_fmt_command = "goimports"
 
