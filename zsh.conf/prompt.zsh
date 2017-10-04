@@ -21,9 +21,9 @@ set_prompt () {
     # If it was successful, print a happy. Otherwise, print
     # a sad.
     if [[ $Last_Command == 0 ]]; then
-        PROMPT+="${fg_bold[green]%}✓"
+        PROMPT+="%{$fg_bold[green]%}✓"
     else
-        PROMPT+="${fg_bold[red]%}✗"
+        PROMPT+="%{$fg_bold[red]%}✗"
     fi
 
     PROMPT+="%{$fg_bold[cyan]%}:%{$fg_bold[yellow]%}%T%{$fg_bold[cyan]%})─%{$reset_color%}─ "
