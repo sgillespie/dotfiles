@@ -46,7 +46,7 @@
      ("elpa" . "http://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
-    (magit magit-filenotify magit-find-file emacsql emacsql-mysql smex neotree ido-ubiquitous find-file-in-repository exec-path-from-shell nix-mode web-mode json-mode js2-mode flycheck groovy-mode ghc haskell-mode color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow color-theme sr-speedbar)))
+    (intero magit magit-filenotify magit-find-file emacsql emacsql-mysql smex neotree ido-ubiquitous find-file-in-repository exec-path-from-shell nix-mode web-mode json-mode js2-mode flycheck groovy-mode ghc haskell-mode color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow color-theme sr-speedbar)))
  '(speedbar-frame-parameters
    (quote
     ((width . 50)
@@ -76,6 +76,7 @@
                            ; languages
                            dockerfile-mode
                            haskell-mode
+                           intero
 			   ghc
                            groovy-mode
                            yaml-mode
@@ -114,6 +115,8 @@
 (add-to-list 'auto-mode-alist '("\\.rest$" . restclient-mode))
 
 ;; Haskell mode
+(intero-global-mode 1)
+
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ;; Make shell mode nicer

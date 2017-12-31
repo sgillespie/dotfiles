@@ -5,11 +5,12 @@ set nocompatible
 filetype off
 call plug#begin(expand('~/.vim/plugged'))
 
-Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'ap/vim-buftabline'
+Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'diepm/vim-rest-console'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
+Plug 'idris-hackers/idris-vim'
 Plug 'jreybert/vimagit'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'scrooloose/nerdtree', {'do' : 'make'}
