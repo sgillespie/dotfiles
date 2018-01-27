@@ -119,9 +119,31 @@
 (intero-global-mode 1)
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            (setq compile-command "stack build --fast --test")))
+(flycheck-add-next-checker
+ 'intero
+ '(warning . haskell-hlint))
 
 ;; Make shell mode nicer
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; This stuff is to ansi-colorize the compilation buffer after a rails test so the terminal colors come through.
+(define-derived-mode ansi-compilation-mode compilation-mode "ansi compilation"
+  "Compilation mode that understands ansi colors."
+  (require 'ansi-color)
+  (read-only-mode 0)
+  (ansi-color-apply-on-region (point-min) (point-max)))
+
+(defun colorize-compilation (one two)
+  "Ansi colorize the compilation buffer."
+  (ansi-compilation-mode))
+
+(setq compilation-finish-function
+      'colorize-compilation)
+
+(bury-successful-compilation t)
 
 ;; Override disabled keys
 (put 'downcase-region 'disabled nil)
@@ -168,7 +190,8 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
-(global-set-key (kbd "C-c C-r") 'recompile)
+(global-set-key (kbd "C-c c") 'compile)
+(global-set-key (kbd "C-c r") 'recompile)
 (global-set-key (kbd "C-c C-l") 'visual-line-mode)
 
 (setq site-el "/usr/share/emacs/site-lisp/")
