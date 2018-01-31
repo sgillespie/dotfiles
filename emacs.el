@@ -18,6 +18,7 @@
  '(auto-save-mode nil)
  '(backup-directory-alist (quote (("." . "~/.emacs_backups"))))
  '(compilation-environment (quote ("TERM=xterm-256color")))
+ '(compilation-scroll-output 'first-error)
  '(compile-command "./gradle.sh build")
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
  '(custom-safe-themes
