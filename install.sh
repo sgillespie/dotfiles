@@ -44,6 +44,7 @@ mkLink "$DIR/vimrc.vim" "$HOME/.vimrc"
 mkLink "$DIR/Xresources" "$HOME/.Xresources"
 mkLink "$DIR/i3.conf" "$HOME/.i3/config"
 mkLink "$DIR/i3status.conf" "$HOME/.i3status.conf"
+mkLink "$DIR/muttrc" "$HOME/.muttrc"
 
 ## Add gitconfig
 git config --global include.path "$DIR/gitconfig"

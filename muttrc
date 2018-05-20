@@ -1,0 +1,42 @@
+source "gpg -dq $HOME/dev/dotfiles/.my-pwds.txt.gpg |"
+source "$HOME/dev/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc"
+
+set folder    = imaps://sub5.mail.dreamhost.com/
+set imap_user = sean@mistersg.net
+set imap_pass = $my_pass
+set spoolfile = +INBOX
+set imap_check_subscribed
+
+set from          = sean@mistersg.net
+set my_user       = sean@mistersg.net
+set realname      = 'Sean D Gillespie'
+set record        = +Sent
+set smtp_url      = smtps://$my_user:$my_pass@sub5.mail.dreamhost.com/
+set ssl_force_tls = yes
+set use_from      = yes
+
+# Store message headers locally to speed things up.
+set header_cache = ~/.cache/mutt
+
+# Store messages locally to speed things up, like searching message bodies.
+set message_cachedir = "~/.cache/mutt"
+
+# Specify where to save and/or look for postponed messages.
+# ???
+# set postponed = +[Gmail]/Drafts
+
+# Allow Mutt to open a new IMAP connection automatically.
+unset imap_passive
+
+# Keep the IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 300
+
+# How often to check for new mail (time in seconds).
+set mail_check = 60
+
+# 
+bind index,pager B sidebar-toggle-visible
+
+macro index A \
+    "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
+    "mark all new as read"
