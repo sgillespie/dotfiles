@@ -99,7 +99,7 @@
                            ; Misc
                            exec-path-from-shell
                            find-file-in-repository
-                           ido-ubiquitous
+                           ido-completing-read+
                            magit
                            neotree
                            restclient
@@ -144,7 +144,8 @@
 (setq compilation-finish-function
       'colorize-compilation)
 
-(bury-successful-compilation t)
+; What happened here?
+; (bury-successful-compilation t)
 
 ;; Override disabled keys
 (put 'downcase-region 'disabled nil)
