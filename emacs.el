@@ -199,6 +199,9 @@
 (setq site-el "/usr/share/emacs/site-lisp/")
 (setq home-el "~/.emacs.d/")
 
+;; Mutt support.
+(add-to-list 'auto-mode-alist '("/tmp/mutt.*" . mail-mode))
+
 ;;; Colors
 (require 'color-theme)
 (color-theme-sanityinc-tomorrow-night)
