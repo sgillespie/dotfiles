@@ -42,7 +42,7 @@ if [[ ! -n "${EC+DEFINED}" ]]; then
 fi
 
 alias ec="$EC -n"
-export EDITOR="gvim --nofork"
+export EDITOR="emacsclient -n"
 
 # make sure color output is set
 export CLICOLOR=
@@ -54,7 +54,6 @@ fi
 
 # Editors
 alias ec="$EC -n"
-export EDITOR="gvim --nofork"
 
 function ecbuffer {
     TMP="$(mktemp /tmp/emacsstdinXXX)"
