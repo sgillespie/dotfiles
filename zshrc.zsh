@@ -42,7 +42,7 @@ if [[ ! -n "${EC+DEFINED}" ]]; then
 fi
 
 alias ec="$EC -n"
-export EDITOR="emacsclient -n"
+export EDITOR="emacsclient"
 
 # make sure color output is set
 export CLICOLOR=

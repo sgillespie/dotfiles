@@ -1,5 +1,5 @@
 " Load vim-plug {{{
-set shell=/bin/zsh
+set shell=zsh
 set nocompatible
 
 filetype off
