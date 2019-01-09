@@ -36,6 +36,8 @@ compinit
 source $INIT_SCRIPT_DIR/zsh.conf/prompt.zsh
 set_prompt
 
+setopt interactivecomments
+
 # aliases
 if [[ ! -n "${EC+DEFINED}" ]]; then
     EC=emacsclient

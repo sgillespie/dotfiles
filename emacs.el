@@ -1,6 +1,47 @@
 ;;; Start the emacs server
 (add-hook 'after-init-hook 'server-start)
 
+;;; Custom variables
+;; This must be first(ish)!
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
+ '(auto-save-mode nil)
+ '(backup-directory-alist (quote (("." . "~/.emacs_backups"))))
+ '(compilation-environment (quote ("TERM=xterm-256color")))
+ '(compilation-scroll-output (quote first-error))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-safe-themes
+   (quote
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+ '(ensime-startup-notification nil)
+ '(fill-column 90)
+ '(indent-tabs-mode nil)
+ '(js-indent-level 2)
+ '(js2-allow-member-expr-as-function-name t)
+ '(js2-basic-offset 2)
+ '(js2-missing-semi-one-line-override t)
+ '(js2-mode-show-parse-errors nil)
+ '(js2-mode-show-strict-warnings nil)
+ '(js2-strict-cond-assign-warning nil)
+ '(js2-strict-inconsistent-return-warning nil)
+ '(js2-strict-missing-semi-warning nil)
+ '(js2-strict-trailing-comma-warning nil)
+ '(js2-strict-var-hides-function-arg-warning nil)
+ '(js2-strict-var-redeclaration-warning nil)
+ '(make-backup-files nil)
+ '(neo-window-width 35)
+ '(nxml-child-indent 2)
+ '(package-archives (quote (("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages
+   (quote
+    (rjsx-mode thrift ensime smex restclient neotree magit ido-completing-read+ find-file-in-repository exec-path-from-shell yaml-mode web-mode nix-mode json-mode js2-mode intero idris-mode groovy-mode ghc flycheck emacsql-mysql emacsql dockerfile-mode color-theme-sanityinc-tomorrow color-theme use-package)))
+ '(truncate-lines t)
+ '(web-mode-indent-offset 2))
+
 ;;; UI
 (line-number-mode 1)
 (column-number-mode 1)
@@ -13,7 +54,7 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "Source Code Pro:pixelsize=16:weight=normal"))
+(add-to-list 'default-frame-alist '(font . "Source Code Pro:pixelsize=15:weight=normal"))
 
 ;;; Key Bindings
 (defvar personal-keys-minor-mode-map
@@ -79,6 +120,9 @@
 (use-package emacsql-mysql
   :ensure t)
 
+(use-package ensime
+  :ensure t)
+
 (use-package flycheck
   :ensure t
   :hook (after-init . global-flycheck-mode)
@@ -100,6 +144,12 @@
 (use-package haskell-mode
   :ensure t
   :config (setq compile-command "stack build --fast --test")
+          (setq-default flycheck-disabled-checkers
+            (append flycheck-disabled-checkers '(haskell-stack-ghc)))
+  :custom (haskell-stylish-on-save t)
+          (flycheck-add-next-checker
+             'haskell
+             '(warning . haskell-hlint))
   :hook (haskell-mode . haskell-indentation-mode))
 
 (use-package idris-mode
@@ -108,14 +158,13 @@
 (use-package intero
   :ensure t
   :after (fly-check)
-  :config (intero-global-mode 1)
+  :config (intero-global-mode nil)
           (flycheck-add-next-checker
            'intero
            '(warning . haskell-hlint)))
 
 (use-package js2-mode
   :ensure t
-  :mode "\\.js$"
   :bind (:map js2-mode-map
           ("RET" . newline-and-indent))
   :config (set (make-local-variable 'electric-indent-functions)
@@ -131,6 +180,21 @@
   :mode "capfile")
 
 (use-package nix-mode
+  :ensure t)
+
+(use-package rjsx-mode
+  :ensure t
+  :mode "\\.js$")
+
+(use-package sbt-mode
+  :ensure t)
+
+(use-package scala-mode
+  :ensure t
+  :bind (:map ensime-mode-map
+              ("C-c C-b RET" . sbt-command)))
+
+(use-package thrift
   :ensure t)
 
 (use-package web-mode
@@ -172,7 +236,7 @@
 
 (use-package restclient
   :ensure t
-  :mode "\\.rest$")
+  :mode ("\\.rest$" . restclient-mode))
 
 (use-package smex
   :ensure t
@@ -202,40 +266,7 @@
   (ansi-compilation-mode))
 
 ;;; Custom variables
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-save-default nil)
- '(auto-save-mode nil)
- '(backup-directory-alist (quote (("." . "~/.emacs_backups"))))
- '(compilation-environment (quote ("TERM=xterm-256color")))
- '(compilation-scroll-output (quote first-error))
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(custom-safe-themes
-   (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(fill-column 90)
- '(indent-tabs-mode nil)
- '(js-indent-level 2)
- '(js2-allow-member-expr-as-function-name t)
- '(js2-basic-offset 2)
- '(js2-missing-semi-one-line-override t)
- '(js2-mode-show-parse-errors nil)
- '(js2-mode-show-strict-warnings nil)
- '(js2-strict-cond-assign-warning nil)
- '(js2-strict-inconsistent-return-warning nil)
- '(js2-strict-missing-semi-warning nil)
- '(js2-strict-trailing-comma-warning nil)
- '(js2-strict-var-hides-function-arg-warning nil)
- '(js2-strict-var-redeclaration-warning nil)
- '(make-backup-files nil)
- '(neo-window-width 35)
- '(nxml-child-indent 2)
- '(package-archives (quote (("melpa" . "https://melpa.org/packages/"))))
- '(truncate-lines t)
- '(web-mode-indent-offset 2))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
