@@ -50,7 +50,10 @@ export EDITOR="emacsclient"
 export CLICOLOR=
 
 # SSH Agent, if we can find it
-if [[ -S "${XDG_RUNTIME_DIR}/ssh-agent.socket" ]]; then
+if [[ -S "${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh" ]]; then
+    export GPG_TTY="$(tty)"
+    export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+elif [[ -S "${XDG_RUNTIME_DIR}/ssh-agent.socket" ]]; then
     export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 fi
 
