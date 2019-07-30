@@ -19,3 +19,7 @@
         nff = merge --no-ff
         f = fetch --all
         fff = !git f && git ff
+[user]
+        signingkey = 238C8173FE134D32
+[commit]
+        gpgSign = true
