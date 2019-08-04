@@ -20,6 +20,6 @@
         f = fetch --all
         fff = !git f && git ff
 [user]
-        signingkey = 238C8173FE134D32
+        signingkey = 163ED0907B84F3E9
 [commit]
         gpgSign = true
