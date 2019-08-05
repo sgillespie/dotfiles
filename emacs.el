@@ -112,7 +112,10 @@
 
 ;; Languages
 (use-package dockerfile-mode
-  :ensure t)
+  :ensure t
+  :hook
+  (dockerfile-mode . (lambda ()
+                       (setq tab-width 4))))
 
 (use-package emacsql
   :ensure t)
