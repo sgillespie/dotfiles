@@ -11,6 +11,7 @@
  '(auto-save-default nil)
  '(auto-save-mode nil)
  '(backup-directory-alist (quote (("." . "~/.emacs_backups"))))
+ '(company-idle-delay nil)
  '(compilation-environment (quote ("TERM=xterm-256color")))
  '(compilation-scroll-output (quote first-error))
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
@@ -19,6 +20,16 @@
     ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(ensime-startup-notification nil)
  '(fill-column 90)
+ '(flycheck-add-next-checker (quote haskell) t)
+ '(flycheck-haskell-runghc-command
+   (quote
+    ("/run/current-system/sw/bin/runghc" "--" "-i" "-packageCabal" "-packagebase" "-packagebytestring" "-packagecontainers" "-packageprocess" "-packagedirectory" "-packagefilepath")))
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-log t)
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-stylish-on-save t)
+ '(helm-completion-style (quote emacs))
+ '(helm-mode t)
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
  '(js2-allow-member-expr-as-function-name t)
@@ -38,7 +49,7 @@
  '(package-archives (quote (("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (rjsx-mode thrift ensime smex restclient neotree magit ido-completing-read+ find-file-in-repository exec-path-from-shell yaml-mode web-mode nix-mode json-mode js2-mode intero idris-mode groovy-mode ghc flycheck emacsql-mysql emacsql dockerfile-mode color-theme-sanityinc-tomorrow color-theme use-package)))
+    (flycheck-haskell company helm helm-ghc nix-mode format-all rjsx-mode thrift ensime smex restclient neotree magit ido-completing-read+ find-file-in-repository exec-path-from-shell yaml-mode web-mode json-mode js2-mode intero idris-mode groovy-mode ghc flycheck emacsql-mysql emacsql dockerfile-mode color-theme-sanityinc-tomorrow color-theme use-package)))
  '(truncate-lines t)
  '(web-mode-indent-offset 2))
 
@@ -110,6 +121,11 @@
   :ensure t
   :config (color-theme-sanityinc-tomorrow-night))
 
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode)
+  :bind (("M-/" . 'company-complete-common)))
+
 ;; Languages
 (use-package dockerfile-mode
   :ensure t
@@ -132,7 +148,15 @@
   :config (flycheck-add-mode 'javascript-eslint 'js-mode)
           (flycheck-add-mode 'javascript-eslint 'js2-mode)
           (setq-default flycheck-disabled-checkers
-            (append flycheck-disabled-checkers '(javascript-jshint))))
+                        (append flycheck-disabled-checkers '(javascript-jshint))))
+
+(use-package flycheck-haskell
+  :ensure t
+  :after (haskell-mode)
+  :hook ((haskell-mode . flycheck-haskell-setup)))
+
+(use-package format-all
+  :ensure t)
 
 (use-package ghc
   :ensure t)
@@ -146,14 +170,32 @@
 
 (use-package haskell-mode
   :ensure t
-  :config (setq compile-command "stack build --fast --test")
-          (setq-default flycheck-disabled-checkers
+  :config (setq-default flycheck-disabled-checkers
             (append flycheck-disabled-checkers '(haskell-stack-ghc)))
+  :bind (:map haskell-mode-map
+          ("C-c `" . haskell-interactive-bring))
   :custom (haskell-stylish-on-save t)
           (flycheck-add-next-checker
              'haskell
              '(warning . haskell-hlint))
-  :hook (haskell-mode . haskell-indentation-mode))
+  :hook ((haskell-mode . haskell-indentation-mode)
+         (haskell-mode . interactive-haskell-mode)))
+
+(use-package helm
+  :ensure t
+  :config (helm-mode 1))
+
+(use-package helm-company
+  :ensure t
+  :after helm
+  :defer nil
+  :bind (:map company-mode-map
+         ("C-;" . helm-company)
+         :map company-active-map
+         ("C-;" . helm-company))
+  :config
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files))
 
 (use-package idris-mode
   :ensure t)
@@ -222,12 +264,6 @@
 (use-package find-file-in-repository
   :ensure t)
 
-(use-package ido-completing-read+
-  :ensure t
-  :config (ido-mode 1)
-          (ido-everywhere 1)
-          (ido-ubiquitous-mode 1))
-
 (use-package magit
   :ensure t
   :bind ("C-c g" . magit-status))
@@ -240,12 +276,6 @@
 (use-package restclient
   :ensure t
   :mode ("\\.rest$" . restclient-mode))
-
-(use-package smex
-  :ensure t
-  :bind (("M-x" . smex)
-         ("M-X" . smex-major-mode-commands)
-         ("C-c C-c M-x" . execute-extended-command)))
 
 (use-package use-package
   :ensure t)
