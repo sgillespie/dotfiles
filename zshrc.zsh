@@ -38,6 +38,9 @@ set_prompt
 
 setopt interactivecomments
 
+# Add to PATH
+export PATH="$PATH:$HOME/.bin"
+
 # aliases
 if [[ ! -n "${EC+DEFINED}" ]]; then
     EC=emacsclient
