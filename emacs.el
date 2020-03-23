@@ -27,10 +27,10 @@
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
- '(haskell-stylish-on-save t)
- '(helm-completion-style (quote emacs))
- '(helm-mode t)
+ '(haskell-stylish-on-save t t)
  '(indent-tabs-mode nil)
+ '(ivy-use-virtual-buffers t)
+ '(ivy-count-format "(%d/%d) ")
  '(js-indent-level 2)
  '(js2-allow-member-expr-as-function-name t)
  '(js2-basic-offset 2)
@@ -44,12 +44,12 @@
  '(js2-strict-var-hides-function-arg-warning nil)
  '(js2-strict-var-redeclaration-warning nil)
  '(make-backup-files nil)
- '(neo-window-width 35)
+ '(neo-window-width 40)
  '(nxml-child-indent 2)
  '(package-archives (quote (("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (flycheck-haskell company helm helm-ghc nix-mode format-all rjsx-mode thrift ensime smex restclient neotree magit ido-completing-read+ find-file-in-repository exec-path-from-shell yaml-mode web-mode json-mode js2-mode intero idris-mode groovy-mode ghc flycheck emacsql-mysql emacsql dockerfile-mode color-theme-sanityinc-tomorrow color-theme use-package)))
+    (helm-company helm format-all flycheck-haskell yaml-mode web-mode use-package thrift terraform-mode smex rjsx-mode restclient nix-mode neotree magit kotlin-mode json-mode intero idris-mode ido-completing-read+ groovy-mode ghc gh-md flycheck-kotlin find-file-in-repository exec-path-from-shell ensime emacsql-mysql dockerfile-mode color-theme-sanityinc-tomorrow color-theme)))
  '(truncate-lines t)
  '(web-mode-indent-offset 2))
 
@@ -100,6 +100,21 @@
 (global-set-key (kbd "C-c r") 'recompile)
 (global-set-key (kbd "C-c C-l") 'visual-line-mode)
 
+;; Ivy keybindings
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "C-h f") 'counsel-describe-function)
+(global-set-key (kbd "C-h v") 'counsel-describe-variable)
+(global-set-key (kbd "C-h l") 'counsel-find-library)
+(global-set-key (kbd "C-h i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "C-h u") 'counsel-unicode-char)
+(global-set-key (kbd "C-h j") 'counsel-set-variable)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-c v") 'ivy-push-view)
+(global-set-key (kbd "C-c V") 'ivy-pop-view)
+
 ;; Override disabled keys
 (put 'downcase-region 'disabled nil)
 
@@ -147,6 +162,7 @@
   :hook (after-init . global-flycheck-mode)
   :config (flycheck-add-mode 'javascript-eslint 'js-mode)
           (flycheck-add-mode 'javascript-eslint 'js2-mode)
+          ; (flycheck-kotlin-setup)
           (setq-default flycheck-disabled-checkers
                         (append flycheck-disabled-checkers '(javascript-jshint))))
 
@@ -181,21 +197,9 @@
   :hook ((haskell-mode . haskell-indentation-mode)
          (haskell-mode . interactive-haskell-mode)))
 
-(use-package helm
+(use-package ivy
   :ensure t
-  :config (helm-mode 1))
-
-(use-package helm-company
-  :ensure t
-  :after helm
-  :defer nil
-  :bind (:map company-mode-map
-         ("C-;" . helm-company)
-         :map company-active-map
-         ("C-;" . helm-company))
-  :config
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files))
+  :config (ivy-mode 1))
 
 (use-package idris-mode
   :ensure t)
@@ -220,6 +224,14 @@
   :ensure t
   :mode (("package\\.json" . json-mode)
          ("\\.babelrc$" . json-mode)))
+
+(use-package kotlin-mode
+  :ensure t)
+
+(use-package flycheck-kotlin
+  :ensure t
+  :after (flycheck)
+  :init (flycheck-kotlin-setup))
 
 (use-package ruby-mode
   :mode "capfile")
@@ -270,7 +282,8 @@
 
 (use-package neotree
   :ensure t
-  :bind (("C-c f" . neotree-show)
+  :bind (:map personal-keys-minor-mode-map
+         ("C-c f" . neotree-show)
          ("C-c C-f" . neotree-toggle)))
 
 (use-package restclient
@@ -297,6 +310,15 @@
 (defun colorize-compilation ()
   "Ansi colorize the compilation buffer."
   (ansi-compilation-mode))
+
+(defun open-in-idea ()
+  "Open the current file in intellij IDEA 15 (OS X specific)."
+  (interactive)
+  (when (file-exists-p (buffer-file-name))
+      (start-process-shell-command "idea-community" "*idea*"
+                                   (format "idea-community --line %s %s"
+                                           (line-number-at-pos)
+                                           (buffer-file-name)))))
 
 ;;; Custom variables
 

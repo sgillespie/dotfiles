@@ -52,6 +52,9 @@ export EDITOR="emacsclient"
 # make sure color output is set
 export CLICOLOR=
 
+# set the clipboard for pass
+export PASSWORD_STORE_X_SELECTION=primary
+
 # SSH Agent, if we can find it
 if [[ -S "${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh" ]]; then
     export GPG_TTY="$(tty)"

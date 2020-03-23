@@ -12,6 +12,7 @@
 	status = auto
 [log]
 	decorate = short
+	showSignature = true
 [push]
 	default = tracking
 [alias]
@@ -20,6 +21,6 @@
         f = fetch --all
         fff = !git f && git ff
 [user]
-        signingkey = 163ED0907B84F3E9
+	signingkey = 163ED0907B84F3E9
 [commit]
-        gpgSign = true
+	gpgSign = true
