@@ -71,8 +71,8 @@ if __name__ == '__main__':
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        j.insert(8, {
-            'full_text' : 'Xkb: %s' % get_layout(),
+        j.insert(7, {
+            'full_text' : 'K: %s' % get_layout(),
             'name' : 'layout'
         })
         # and echo back new encoded json
