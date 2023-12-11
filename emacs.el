@@ -16,7 +16,7 @@
  '(compilation-scroll-output 'first-error)
  '(custom-enabled-themes '(sanityinc-tomorrow-night))
  '(custom-safe-themes
-   '("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))
+   '("fee7287586b17efbfda432f05539b58e86e059e78006ce9237b8732fde991b4c" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))
  '(fill-column 90)
  '(flycheck-haskell-runghc-command
    '("/run/current-system/sw/bin/runghc" "--" "-i" "-packageCabal" "-packagebase" "-packagebytestring" "-packagecontainers" "-packageprocess" "-packagedirectory" "-packagefilepath"))
@@ -38,13 +38,33 @@
  '(js2-strict-trailing-comma-warning nil)
  '(js2-strict-var-hides-function-arg-warning nil)
  '(js2-strict-var-redeclaration-warning nil)
+ '(lsp-haskell-plugin-stan-global-on nil)
+ '(lsp-haskell-server-path "haskell-language-server")
+ '(lsp-lens-enable nil)
  '(make-backup-files nil)
  '(neo-window-width 40)
  '(nxml-child-indent 2)
  '(package-archives
    '(("melpa" . "https://melpa.org/packages/")
      ("elpa" . "https://elpa.gnu.org/packages/")))
+ '(package-selected-packages
+   '(ligature gh-md direnv solarized-theme restclient neotree magit exec-path-from-shell counsel yaml-mode web-mode rjsx-mode nix-mode glsl-mode flycheck-kotlin fsharp-mode kotlin-mode json-mode js2-mode groovy-mode format-all lsp-haskell lsp-ui lsp-ivy lsp-treemacs lsp-mode flycheck emacsql-mysql emacsql dockerfile-mode company color-theme-sanityinc-tomorrow use-package))
+ '(safe-local-variable-values
+   '((format-all-formatters
+      ("Haskell" fourmolu))
+     (format-all-formatters
+      ("Haskell" stylish-haskell))
+     (lsp-haskell-server-path "/home/sgillespie/dev/haskell/haskell-language-server/dist-newstyle/build/x86_64-linux/ghc-9.2.8/haskell-language-server-2.2.0.0/x/haskell-language-server/build/haskell-language-server/haskell-language-server")
+     (eglot-server-programs
+      (haskell-mode "/home/sgillespie/.cabal/bin/haskell-language-server" "--lsp"))
+     (eglot-server-programs
+      (haskell-mode "sean" "--lsp"))
+     (eglot-server-programs
+      (haskell-mode "haskell-language-server" "--lsp"))
+     (lsp-haskell-server-path . "/home/sgillespie/dev/haskell/haskell-language-server/dist-newstyle/build/x86_64-linux/ghc-9.2.8/haskell-language-server-2.2.0.0/x/haskell-language-server/build/haskell-language-server/haskell-language-server")
+     (lsp-haskell-server-path . "/path/to/your/hacked/haskell-language-server")))
  '(truncate-lines t)
+ '(warning-suppress-types '((direnv) (comp)))
  '(web-mode-indent-offset 2))
 
 ;;; UI
@@ -59,7 +79,7 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "Source Code Pro:pixelsize=15:weight=normal"))
+(add-to-list 'default-frame-alist '(font . "0xProto:pixelsize=15"))
 
 ;;; Key Bindings
 (defvar personal-keys-minor-mode-map
@@ -112,6 +132,9 @@
 ;; Override disabled keys
 (put 'downcase-region 'disabled nil)
 
+;; Delete trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;;; Packages
 (require 'package)
 (package-initialize)
@@ -123,14 +146,17 @@
   (package-install 'use-package))
 
 ;; Themes
-(use-package color-theme-sanityinc-tomorrow
+(use-package solarized-theme
   :ensure t
-  :config (color-theme-sanityinc-tomorrow-night))
+  :config (load-theme 'solarized-dark))
 
 (use-package company
   :ensure t
   :hook (after-init . global-company-mode)
   :bind (("M-/" . 'company-complete-common)))
+
+(use-package gh-md
+  :ensure t)
 
 ;; Languages
 (use-package dockerfile-mode
@@ -140,9 +166,6 @@
                        (setq tab-width 4))))
 
 (use-package emacsql
-  :ensure t)
-
-(use-package emacsql-mysql
   :ensure t)
 
 (use-package flycheck
@@ -155,12 +178,34 @@
                         (append flycheck-disabled-checkers '(javascript-jshint))))
 
 ; Haskell
-(use-package lsp-mode
+(use-package direnv
   :ensure t
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((haskell-mode . lsp))
-  :commands lsp)
+  :config
+  (direnv-mode))
+
+(use-package eglot
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook 'eglot-ensure)
+  :config
+  (setq-default eglot-workspace-configuration
+                '((haskell
+                   (plugin
+                    (stan
+                     (globalOn . :json-false)))) ; disable stan
+                  (haskell
+                   (formattingProvider . "fourmolu"))))
+  :config
+  (add-to-list
+   'eglot-server-programs
+   '(haskell-mode . ("haskell-language-server" "--lsp")))
+  :custom
+  (flycheck-global-modes '(not haskell-mode)) ; Disable flycheck
+  (eglot-autoshutdown t)  ;; shutdown language server after closing last file
+  (eglot-confirm-server-initiated-edits nil))  ;; allow edits without confirmation
+
+(use-package lsp-mode
+  :ensure f)
 
 (use-package lsp-treemacs :ensure t)
 (use-package lsp-ivy :ensure t)
@@ -168,52 +213,17 @@
 (use-package lsp-haskell :ensure t)
 
 (use-package format-all
-  :ensure t)
-
-(use-package groovy-mode
   :ensure t
-  :mode (("\\.groovy$" . groovy-mode)
-         ("\\.gradle$" . groovy-mode))
-  :interpreter "groovy"
-  :hook (groovy-mode . java-like-mode-hook))
-
-(use-package js2-mode
-  :ensure t
-  :bind (:map js2-mode-map
-          ("RET" . newline-and-indent))
-  :config (set (make-local-variable 'electric-indent-functions)
-               (list (lambda (one two)
-                       'no-indent))))
+  :hook
+  ((haskell-mode . format-all-mode)))
 
 (use-package json-mode
   :ensure t
   :mode (("package\\.json" . json-mode)
          ("\\.babelrc$" . json-mode)))
 
-(use-package kotlin-mode
-  :ensure t)
-
-(use-package fsharp-mode
-  :defer t
-  :ensure t)
-
-(use-package flycheck-kotlin
-  :ensure t
-  :after (flycheck)
-  :init (flycheck-kotlin-setup))
-
-(use-package glsl-mode
-  :ensure t)
-
-(use-package ruby-mode
-  :mode "capfile")
-
 (use-package nix-mode
   :ensure t)
-
-(use-package rjsx-mode
-  :ensure t
-  :mode "\\.js$")
 
 (use-package web-mode
   :ensure t
@@ -232,6 +242,25 @@
   :ensure t
   :config (exec-path-from-shell-initialize))
 
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures 't '("www"))
+  (ligature-set-ligatures
+   'prog-mode
+   '("->" "<-" "=>" "=>>" ">=>"
+     "=>=" "=<<" "=<=" "<=<" "<=>"
+     ">>" ">>>" "<<" "<<<" "<>"
+     "<|>" "==" "===" ".=" ":="
+     "#=" "!=" "!==" "=!=" "=:="
+     "::" ":::" ":<:" ":>:" "||"
+     "|>" "||>" "|||>" "<|" "<||"
+     "<|||" "**" " ***" "<*" "<*>"
+     "*>" "<+" "<+>" "+>" "<$"
+     "<$>" "$>" "&&" "??" "%%"
+     "|]" "[|" "//" "///"))
+  (global-ligature-mode))
+
 (use-package magit
   :ensure t
   :bind ("C-c g" . magit-status))
@@ -242,20 +271,17 @@
          ("C-c f" . neotree-show)
          ("C-c C-f" . neotree-toggle)))
 
+(use-package flymake-shellcheck
+  :commands flymake-shellcheck-load
+  :init
+  (add-hook 'sh-mode-hook 'flymake-shellcheck-load))
+
 (use-package restclient
   :ensure t
   :mode ("\\.rest$" . restclient-mode))
 
 (use-package use-package
   :ensure t)
-
-;; Java-esque indenting
-(defun java-like-mode-hook ()
-  (setq c-basic-offset 2
-        tab-width 2
-        indent-tabs-mode nil))
-
-(add-hook 'java-mode-hook 'java-like-mode-hook)
 
 ;;; Custom variables
 (custom-set-faces
