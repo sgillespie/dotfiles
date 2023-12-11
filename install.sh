@@ -30,6 +30,7 @@ function mkLink {
 mkdir -p "$HOME/.xmonad"
 mkdir -p "$HOME/.i3"
 mkdir -p "$HOME/.bin"
+mkdir -p "$HOME/.conf/i3blocks"
 
 ## Create Links
 mkLink "$DIR/zshrc.zsh" "$HOME/.zshrc"
@@ -46,6 +47,8 @@ mkLink "$DIR/Xresources" "$HOME/.Xresources"
 mkLink "$DIR/i3.conf" "$HOME/.i3/config"
 mkLink "$DIR/i3status.conf" "$HOME/.i3status.conf"
 mkLink "$DIR/i3status-wrapper.py" "$HOME/.bin/i3status-wrapper.py"
+mkLink "$DIR/i3blocks.conf" "$HOME/.config/i3blocks/conf"
+mkLink "$DIR/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 mkLink "$DIR/muttrc" "$HOME/.muttrc"
 
 ## Add gitconfig
