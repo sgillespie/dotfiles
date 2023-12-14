@@ -25,3 +25,5 @@
 	signingkey = 84F97C2EDCE62BCE0AA215BC163ED0907B84F3E9
 [includeIf "hasconfig:remote.*.url:git@github.com:input-output-hk/**"]
         path= gitconfig-iohk
+[includeIf "hasconfig:remote.*.url:git@github.com:IntersectMBO/**"]
+        path= gitconfig-iohk
